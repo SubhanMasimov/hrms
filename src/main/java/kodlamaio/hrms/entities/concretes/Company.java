@@ -3,20 +3,21 @@ package kodlamaio.hrms.entities.concretes;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@EqualsAndHashCode(callSuper = false)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "companies")
-public class Company extends User{
+public class Company{
 
 	@Id
 	@Column(name = "user_id")
@@ -30,4 +31,9 @@ public class Company extends User{
 
 	@Column(name = "phone_number")
 	private String phoneNumber;
+	
+	@OneToOne
+	@MapsId
+	@JoinColumn(name = "user_id")
+	private User user;
 }

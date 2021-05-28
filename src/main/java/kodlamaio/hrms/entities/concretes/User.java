@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "users"})
 public class User {
 
 	@Id
@@ -36,4 +37,9 @@ public class User {
 
 	@Column(name = "status")
 	private boolean status;
+
+//	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+//	@PrimaryKeyJoinColumn
+//	private Candidate candidate;
+
 }
