@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "candidates")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "candidates"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "candidates" })
 public class Candidate {
 
 	@Id
@@ -44,4 +44,12 @@ public class Candidate {
 	@MapsId
 	@JoinColumn(name = "user_id")
 	private User user;
+
+	public Candidate(String firstName, String lastName, String nationalityId, LocalDate birthDate) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.nationalityId = nationalityId;
+		this.birthDate = birthDate;
+	}
+
 }

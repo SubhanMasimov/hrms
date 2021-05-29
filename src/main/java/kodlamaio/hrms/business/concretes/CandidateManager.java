@@ -35,7 +35,6 @@ public class CandidateManager implements CandidateService {
 	public Result add(Candidate candidate) {
 
 		userService.add(candidate.getUser());
-		candidate.setUser(candidate.getUser());
 		candidateDao.save(candidate);
 		return new SuccessResult("Namizəd əlavə edildi");
 	}

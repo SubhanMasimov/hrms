@@ -33,7 +33,6 @@ public class CompanyManager implements CompanyService {
 	public Result add(Company company) {
 		
 		userService.add(company.getUser());
-		company.setUser(company.getUser());
 		companyDao.save(company);
 		return new SuccessResult("Şirkət əlavə edildi");
 	}
