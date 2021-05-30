@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.CandidateService;
 import kodlamaio.hrms.business.abstracts.UserService;
+import kodlamaio.hrms.business.adapters.personService.PersonService;
+import kodlamaio.hrms.core.utilities.business.BusinessRules;
 import kodlamaio.hrms.core.utilities.results.DataResult;
+import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
@@ -19,10 +22,12 @@ public class CandidateManager implements CandidateService {
 
 	private CandidateDao candidateDao;
 	private UserService userService;
+	private PersonService personService;
 
 	@Autowired
-	public CandidateManager(CandidateDao candidateDao, UserService userService) {
+	public CandidateManager(CandidateDao candidateDao, UserService userService, PersonService personService) {
 		this.candidateDao = candidateDao;
+		this.personService = personService;
 		this.userService = userService;
 	}
 
@@ -33,9 +38,23 @@ public class CandidateManager implements CandidateService {
 
 	@Override
 	public Result add(Candidate candidate) {
-		
-		userService.add(candidate.getUser());
-		candidateDao.save(candidate);
-		return new SuccessResult("Namizəd əlavə edildi");
+		Result result = BusinessRules.run(CheckIfPersonValid(candidate));
+
+		if (result == null) {
+			userService.add(candidate.getUser());
+			candidateDao.save(candidate);
+			return new SuccessResult("Namizəd əlavə edildi");
+		}
+
+		return new ErrorResult(result.getMessage());
+
+	}
+
+	// business rules
+
+	private Result CheckIfPersonValid(Candidate candidate) {
+
+		return personService.verify(candidate) == true ? new SuccessResult()
+				: new ErrorResult("İstifadəçi doğrulanmadı");
 	}
 }

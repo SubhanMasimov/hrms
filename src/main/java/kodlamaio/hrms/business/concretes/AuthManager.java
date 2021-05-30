@@ -1,6 +1,5 @@
 package kodlamaio.hrms.business.concretes;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +48,11 @@ public class AuthManager implements AuthService {
 	public Result registerCandidate(CandidateRegisterDto dto) {
 		Candidate candidate = new Candidate(dto.getFirstName(), dto.getLastName(), dto.getNationalityId(),
 				dto.getBirthDate());
-
 		candidate.setUser(new User(dto.getEmail(), dto.getPassword(), LocalDateTime.now(), false));
-		candidateService.add(candidate);
-		return new SuccessResult("Namizəd əlavə edildi");
+
+		Result result = candidateService.add(candidate);
+		return result.isSuccess() ? new SuccessResult(result.getMessage()) : new ErrorResult(result.getMessage());
+
 	}
 
 	@Override
@@ -60,8 +60,8 @@ public class AuthManager implements AuthService {
 		Company company = new Company(dto.getCompamyName(), dto.getWebSite(), dto.getPhone());
 		company.setUser(new User(dto.getEmail(), dto.getPassword(), LocalDateTime.now(), false));
 
-		companyService.add(company);
-		return new SuccessResult("Şirkət əlavə edildi");
+		Result result = companyService.add(company);
+		return result.isSuccess() ? new SuccessResult(result.getMessage()) : new ErrorResult(result.getMessage());
 
 	}
 
