@@ -1,6 +1,7 @@
 package kodlamaio.hrms.business.concretes;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,7 @@ public class AuthManager implements AuthService {
 		Candidate candidate = new Candidate(dto.getFirstName(), dto.getLastName(), dto.getNationalityId(),
 				dto.getBirthDate());
 
-		candidate.setUser(new User(dto.getEmail(), dto.getPassword(), LocalDate.now(), false));
+		candidate.setUser(new User(dto.getEmail(), dto.getPassword(), LocalDateTime.now(), false));
 		candidateService.add(candidate);
 		return new SuccessResult("Namizəd əlavə edildi");
 	}
@@ -57,7 +58,7 @@ public class AuthManager implements AuthService {
 	@Override
 	public Result registerCompany(CompanyRegisterDto dto) {
 		Company company = new Company(dto.getCompamyName(), dto.getWebSite(), dto.getPhone());
-		company.setUser(new User(dto.getEmail(), dto.getPassword(), LocalDate.now(), false));
+		company.setUser(new User(dto.getEmail(), dto.getPassword(), LocalDateTime.now(), false));
 
 		companyService.add(company);
 		return new SuccessResult("Şirkət əlavə edildi");

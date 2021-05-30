@@ -1,6 +1,7 @@
 package kodlamaio.hrms.entities.concretes;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,12 +33,12 @@ public class User {
 	private String password;
 
 	@Column(name = "create_date")
-	private LocalDate createDate;
+	private LocalDateTime createDate;
 
 	@Column(name = "status")
 	private boolean status;
 
-	public User(String email, String password, LocalDate createDate, boolean status) {
+	public User(String email, String password, LocalDateTime createDate, boolean status) {
 		this.email = email;
 		this.password = password;
 		this.createDate = createDate;
