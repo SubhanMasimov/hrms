@@ -36,4 +36,10 @@ public class Company{
 	@MapsId
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+	public Company(String companyName, String website, String phoneNumber) {
+		this.companyName = companyName;
+		this.website = website;
+		this.phoneNumber = phoneNumber;
+	}
 }
